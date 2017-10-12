@@ -1,27 +1,27 @@
-<!DOCTYPE html>
-<script src="aframe.min.js"></script>
-<script src="aframe-ar.js"></script>
+<head>
+    <title>My A-Frame Scene</title>
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+</head>
 
 <body style='margin : 0px; overflow: hidden;'>
-    <!-- creas la escena -->
-    <a-scene embedded arjs='trackingMethod: best;'>
-        <a-anchor hit-testing-enabled='true'>
+<!-- agrego sonido a la escena -->
+<a-scene>
 
-            <a-box position='0 1 0' color="#FFC65D"></a-box>
+        <!-- Cuando hace click cambia de verde a rojo -->
+        <a-cylinder position="1 0.5 -3" color="green" radius="0.3" height="1.5"
+               event-set__click="material.color: red;"
+               ></a-cylinder>
 
-            <a-sphere position='0 1 1.5' radius="0.1" color="blue">
-                <a-animation attribute="scale" dur="1000" from="1 1 1" to="2 2 2" direction="alternate-reverse" easing="ease-in-out-circ" repeat="indefinite"></a-animation>
-            </a-sphere>
+        <!-- Cuando apoya el mouse cambia de verde a naranja luego cuando sale de la figura cambia a azul y queda fijo en ese color -->
+        <a-box position="-1 0.5 -3" rotation="0 30 0" color="green"
+               event-set__enter="_event: mouseenter; color: #D23514"
+               event-set__leave="_event: mouseleave; color: #3D85C6"></a-box>
 
-            <a-cylinder position="1 1 1" radius="0.3" height="1.5" color="pink"></a-cylinder>
+        <!-- Cuando hace click en la figura, se reproduce un sonido -->
+         <a-sphere position="1 2.5 -5" color="green" radius="0.5"
+              sound="src: url(risa_malvada.mp3); on: click"></a-sphere>
 
-            <a-plane position="0 0 0" rotation="-90 0 0" width="3" height="3" material='opacity: 0.5;'></a-plane>
-<!-- prueba -->
-            <a-text side="double"  font="mozillavr" value="Prototipo I" position='-0.5 3 0' color='red'></a-text>
-            <a-text side="front" font="kelsonsans" value="Practica Profesional Supervisada I" position='-1.5 3 0.5' color='#FA5858'></a-text>
-
-        </a-anchor>
-        <a-camera-static/>
-    </a-scene>
+    <a-camera><a-cursor></a-cursor></a-camera>
+</a-scene>
 </body>
-</html>
